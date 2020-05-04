@@ -5,8 +5,8 @@
     "start": "cd api && yarn install && yarn start"
   },
   "engines": {
-    "node": "12.x",
-    "yarn": "1.x"
+    "node": "12.16.x",
+    "yarn": "1.22.x"
   },
   "license": "MIT"
 }
