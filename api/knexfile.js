@@ -8,5 +8,13 @@ module.exports = {
       directory: `${__dirname}/src/database/migrations`
     },
     useNullAsDefault: true
+  },
+  production: {
+    client: "pg",
+    connection: process.env.DB_URL,
+    pool: { min: 0, max: 7 },
+    migrations: {
+      directory: `${__dirname}/src/database/migrations`
+    },
   }
 }
