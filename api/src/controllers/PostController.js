@@ -1,5 +1,5 @@
 const knex = require('../database')
-const blobClient = require('../config/azure')
+const containerClient = require('../config/azure')
 const fs = require('fs')
 const path = require('path')
 
@@ -11,16 +11,12 @@ module.exports = {
   },
 
   async post (req, res) {
-    const containerClient = blobClient.getContainerClient('imagens')
     const blockBlob = containerClient.getBlockBlobClient(req.file.filename)
-
     const response = await blockBlob.uploadFile(req.file.path)
 
     if(!response.errorCode) {
       fs.unlinkSync(req.file.path)
     }
-    
-    console.log(response)
 
     return res.send()
   },
@@ -29,5 +25,16 @@ module.exports = {
   },
 
   async delete(req, res) {
+    const { filename } = req.body
+    try {
+      await containerClient.deleteBlob(filename)
+    } catch (error) {
+      return res.json({
+        statusCode: error.statusCode,
+        details: error.details.errorCode
+      })
+    }
+
+    return res.send()
   }
 }

@@ -14,5 +14,6 @@ routes.put('/categories/:id', CategoriesController.update)
 routes.delete('/categories/:id', CategoriesController.delete)
 
 routes.post('/posts', upload.single('image'), PostController.post)
+routes.delete('/posts', PostController.delete)
 
 module.exports = routes

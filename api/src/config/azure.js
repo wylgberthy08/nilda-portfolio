@@ -11,4 +11,5 @@ const blobServiceClient = new BlobServiceClient(
   sharedKeyCredential
 )
 
-module.exports = blobServiceClient
+const containerClient = blobServiceClient.getContainerClient('imagens')
+module.exports = containerClient
